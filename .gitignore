@@ -1,0 +1,7 @@
+.idea/
+*.pyc
+.DS_Store
+app/joeddav/
+.ipynb_checkpoints/
+*.ipynb
+*.xlsx
