@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from PIL import Image
 import io
-from src.classifier import ImageClassification
+from classifier import ImageClassification
 
 app = FastAPI(
     title="Image Classification",
