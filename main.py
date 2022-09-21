@@ -40,19 +40,19 @@ class ClassificationResponse(BaseModel):
     response: List[IndividualClass] = Field(..., title="List top class predictions")
 
 
-@app.post("/image_classifier/", tags=["classifiers"], response_model=ClassificationResponse)
-async def classify(input_file: UploadFile = File(...)):
+@app.post("/predict/", tags=["classifiers"], response_model=ClassificationResponse)
+async def classify(input_sequence: UploadFile = File(...)):
 
     # Check uploaded file type
-    if input_file.content_type not in ["image/jpeg", "image/png"]:
+    if input_sequence.content_type not in ["image/jpeg", "image/png"]:
         raise HTTPException(400, detail="Invalid document type")
 
     # Try to open image file
     try:
-        request_object_content = await input_file.read()
+        request_object_content = await input_sequence.read()
         img = Image.open(io.BytesIO(request_object_content))
     except Exception:
-        return {"message": "There was an error uploading the file"}
+        return {"response": "There was an error uploading the file"}
 
     # Run inference
     output = image_classifier.classify(img)
